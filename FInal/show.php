@@ -14,6 +14,14 @@ require 'connect.php';//require or include
        $statement->bindValue(':id', $id, PDO::PARAM_INT);
        $statement->execute();
        $post = $statement->fetch();
+
+       // Build a comment query
+       $commentquery = "SELECT * FROM comments WHERE shipid = :id";
+      $commentstatement = $db->prepare($commentquery);
+       //bind id and snitized
+      $commentstatement->bindValue(':id', $id, PDO::PARAM_INT);
+      $commentstatement->execute();
+      $comments = $commentstatement->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +57,39 @@ require 'connect.php';//require or include
         <p>Missile Hardpoints: <?= $post['missile_hardpoints'] ?></p>
       </div>
     </div>
+    <form action="process_post.php" method="post">
+    <fieldset>
+      <legend>New Blog Post</legend>
+      <p>
+        <label for="comment">Make a Comment</label>
+        <input name="comment" id="title">
+      </p>
+      <p>
+        <label for="name">Name</label>
+        <textarea name="name" id="content"></textarea>
+      </p>
+      <p>
+        <label for="content">Content</label>
+        <textarea name="content" id="content"></textarea>
+      </p>
+      <p><input type="hidden" name="shipid" value=<?= $post['id'] ?> /></p>
+      <p>
+        <input type="submit" name="command" value="CreateComment">
+      </p>
+    </fieldset>
+  </form>
+  <div id="all_blogs">
+            <?php foreach($comments as $comment): ?>
+                <div class="blog_post">
+                  <p><?= $comment['username'] ?> said: <?= $comment['comment'] ?></p>
+                  <p>
+                  <small>
+                    <a href="editcomment.php?id=<?= $comment['id'] ?>">edit comment</a>
+                  </small>
+                  </p>
+                </div>
+            <?php endforeach ?>
+        </div>
   </div>
         <div id="footer">
             NKing Final

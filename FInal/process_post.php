@@ -1,6 +1,7 @@
 <?php
-
-$ship   = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$username   = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$content   = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$shipid      = filter_input(INPUT_POST, 'shipid', FILTER_SANITIZE_NUMBER_INT);
 $hull      = filter_input(INPUT_POST, 'hull', FILTER_SANITIZE_NUMBER_INT);
 $shield      = filter_input(INPUT_POST, 'shield', FILTER_SANITIZE_NUMBER_INT);
 $armor      = filter_input(INPUT_POST, 'armor', FILTER_SANITIZE_NUMBER_INT);
@@ -45,6 +46,15 @@ if(isset($_REQUEST['command'])) {
         $statement = $db->prepare($query);
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         // Execute the SQL.
+        $statement->execute();
+        header("Location: index.php");
+    } else if ($_REQUEST['command'] == 'CreateComment') {
+        $query    ="INSERT INTO comments (username, comment, shipid) VALUES (:username, :comment, :shipid)";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':shipid', $shipid, PDO::PARAM_INT);
+        $statement->bindValue(':username', $username);
+        $statement->bindValue(':comment', $comment);
+        //Execute the sql
         $statement->execute();
         header("Location: index.php");
     }
