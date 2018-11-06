@@ -59,11 +59,7 @@ require 'connect.php';//require or include
     </div>
     <form action="process_post.php" method="post">
     <fieldset>
-      <legend>New Blog Post</legend>
-      <p>
-        <label for="comment">Make a Comment</label>
-        <input name="comment" id="title">
-      </p>
+      <legend>New Comment</legend>
       <p>
         <label for="name">Name</label>
         <textarea name="name" id="content"></textarea>
@@ -77,8 +73,8 @@ require 'connect.php';//require or include
         <input type="submit" name="command" value="CreateComment">
       </p>
     </fieldset>
-  </form>
-  <div id="all_blogs">
+    </form>
+        <div id="all_blogs">
             <?php foreach($comments as $comment): ?>
                 <div class="blog_post">
                   <p><?= $comment['username'] ?> said: <?= $comment['comment'] ?></p>
