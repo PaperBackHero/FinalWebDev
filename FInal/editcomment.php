@@ -35,7 +35,7 @@ require 'connect.php';//require or include
     <li><a href="create.php" >New Ship</a></li>
 </ul> <!-- END div id="menu" -->
 <div id="all_blogs">
-  <form action="process_post.php" method="post">
+  <form action="process_comment.php" method="post">
     <fieldset>
       <legend>Edit Comment</legend>
       <p>

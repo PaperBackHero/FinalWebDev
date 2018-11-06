@@ -57,7 +57,7 @@ require 'connect.php';//require or include
         <p>Missile Hardpoints: <?= $post['missile_hardpoints'] ?></p>
       </div>
     </div>
-    <form action="process_post.php" method="post">
+    <form action="process_comment.php" method="post">
     <fieldset>
       <legend>New Comment</legend>
       <p>
@@ -70,7 +70,7 @@ require 'connect.php';//require or include
       </p>
       <p><input type="hidden" name="shipid" value=<?= $post['id'] ?> /></p>
       <p>
-        <input type="submit" name="command" value="CreateComment">
+        <input type="submit" name="command" value="Create Comment">
       </p>
     </fieldset>
     </form>
