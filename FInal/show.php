@@ -16,12 +16,12 @@ require 'connect.php';//require or include
        $post = $statement->fetch();
 
        // Build a comment query
-       $commentquery = "SELECT * FROM comments WHERE shipid = :id";
-      $commentstatement = $db->prepare($commentquery);
+       $query = "SELECT username, comment FROM comments WHERE shipid = :id";
+      $statement = $db->prepare($query);
        //bind id and snitized
-      $commentstatement->bindValue(':id', $id, PDO::PARAM_INT);
-      $commentstatement->execute();
-      $comments = $commentstatement->fetch();
+      $statement->bindValue(':id', $id, PDO::PARAM_INT);
+      $statement->execute();
+      $comments = $statement->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -74,18 +74,20 @@ require 'connect.php';//require or include
       </p>
     </fieldset>
     </form>
-        <div id="all_blogs">
-            <?php foreach($comments as $comment): ?>
-                <div class="blog_post">
-                  <p><?= $comment['username'] ?> said: <?= $comment['comment'] ?></p>
-                  <p>
+    <?php if (empty($comments['comment'])): ?>
+                  <p>There are no comments.</p>
+        <?php else: ?>
+      <?php foreach($comments as $comment): ?>
+          <div class="blog_post">
+              <p><?= $comment['username'] ?> said: <?= $comment['comment'] ?></p>
+                <p>
                   <small>
                     <a href="editcomment.php?id=<?= $comment['id'] ?>">edit comment</a>
                   </small>
-                  </p>
-                </div>
-            <?php endforeach ?>
-        </div>
+                </p>
+            </div>
+          <?php endforeach ?>
+          <?php endif ?>
   </div>
         <div id="footer">
             NKing Final
