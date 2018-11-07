@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Eve Ship Repository - Register</title>
+	<link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
 <div id="wrapper">
