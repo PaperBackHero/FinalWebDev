@@ -19,6 +19,7 @@ if(isset($_REQUEST['command'])) {
             $statement->execute();
             header("Location: index.php");
         }
+    }
 }
  ?>
 <!DOCTYPE html>

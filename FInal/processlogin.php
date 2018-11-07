@@ -5,7 +5,34 @@ $password   = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_
 if (isset($_REQUEST['command'])) {
     
     if ($_REQUEST['command'] == 'login') {
-        
+        if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        header("location: welcome.php");
+        exit;
+        }
+        else if ($username != "" || $password != "") {
+            require 'connect.php';
+
+            $hashed_password ="SELECT password FROM login WHERE user = :username";
+            $statement->bindValue(':username', $username);
+            $statement->execute();
+
+            if (password_verify($password, $hashed_password)) {
+            $id ="SELECT id FROM login WHERE user = :username";
+            $statement->bindValue(':username', $username);
+            $statement->execute();
+
+                session_start();
+                            
+                // Store data in session variables
+                $_SESSION["loggedin"] = true;
+                $_SESSION["id"] = $id;
+                $_SESSION["username"] = $username;                            
+                            
+                // Redirect user to welcome page
+                header("location: welcome.php");
+            }
+        }
+
     }
 
 }
@@ -25,7 +52,8 @@ if (isset($_REQUEST['command'])) {
         </div>
         <h1>An error occured while processing your login.</h1>
         <p>Username or password was incorrect.</p>
-        <a href="login.php">try again</a>
+        <a href="login.php">Try again</a>
+        <a href="index.php">Home</a>
 
         <div id="footer">
             NKing Final
