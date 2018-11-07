@@ -16,12 +16,12 @@ require 'connect.php';//require or include
        $post = $statement->fetch();
 
        // Build a comment query
-       $query = "SELECT username, comment FROM comments WHERE shipid = :id";
+       $query = "SELECT * FROM comments WHERE shipid = :id";
       $statement = $db->prepare($query);
        //bind id and snitized
       $statement->bindValue(':id', $id, PDO::PARAM_INT);
       $statement->execute();
-      $comments = $statement->fetch();
+      $comments = $statement->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -74,9 +74,7 @@ require 'connect.php';//require or include
       </p>
     </fieldset>
     </form>
-    <?php if (empty($comments['comment'])): ?>
-                  <p>There are no comments.</p>
-        <?php else: ?>
+    <h3>Comments</h3>
       <?php foreach($comments as $comment): ?>
           <div class="blog_post">
               <p><?= $comment['username'] ?> said: <?= $comment['comment'] ?></p>
@@ -87,7 +85,6 @@ require 'connect.php';//require or include
                 </p>
             </div>
           <?php endforeach ?>
-          <?php endif ?>
   </div>
         <div id="footer">
             NKing Final
