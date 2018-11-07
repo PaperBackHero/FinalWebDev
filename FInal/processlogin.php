@@ -9,9 +9,9 @@ if(isset($_REQUEST['command'])) {
 
     if ($_REQUEST['command'] == 'Register') {
         if ($password1 == $password2) {
-            $query    ="INSERT INTO login (username, email, password) VALUES (:username, :email, :password)";
+            $query    = "INSERT INTO login (user, password, email) VALUES (:user, :password, :email)";
             $statement = $db->prepare($query);
-            $statement->bindValue(':username', $username);
+            $statement->bindValue(':user', $username);
             $statement->bindValue(':password', $hashed_Password);
             $statement->bindValue(':email', $email);
             //Execute the sql
