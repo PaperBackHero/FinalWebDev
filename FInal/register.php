@@ -4,7 +4,11 @@
 	<title>Eve Ship Repository - Register</title>
 </head>
 <body>
-<h2>Register</h2>
+<div id="wrapper">
+    <div id="header">
+        <h1><a href="index.php">EvE Ship Repository - Register</a></h1>
+    </div> <!-- END div id="header" -->
+    <div id="all_blogs">
 <form method="post" action="processlogin.php">
   	<div class="input-group">
   	  <label>Username</label>
@@ -24,5 +28,6 @@
   		Already a member? <a href="login.php">Sign in</a>
   	</p>
   </form>
+ </div>
 </body>
 </html>
