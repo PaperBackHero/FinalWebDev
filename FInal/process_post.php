@@ -1,4 +1,5 @@
 <?php
+$ship      = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $hull      = filter_input(INPUT_POST, 'hull', FILTER_SANITIZE_NUMBER_INT);
 $shield      = filter_input(INPUT_POST, 'shield', FILTER_SANITIZE_NUMBER_INT);
 $armor      = filter_input(INPUT_POST, 'armor', FILTER_SANITIZE_NUMBER_INT);
