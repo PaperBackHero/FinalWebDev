@@ -26,6 +26,7 @@ $posts= $statement->fetchAll();
             <li><a href="create.php" >New Ship</a></li>
             <li><a href="register.php" >Register</a></li>
             <li><a href="login.php">Login</a></li>
+            <li><a href="admin.php">Admin</a></li>
         </ul> <!-- END ul id="menu" -->
         <div id="all_blogs">
             <?php foreach($posts as $post): ?>
