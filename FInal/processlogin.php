@@ -1,26 +1,16 @@
-<?php 
-$email  = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+<?php
 $username   = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$password1   = filter_input(INPUT_POST, 'password_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$password2   = filter_input(INPUT_POST, 'password_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$hashed_Password = password_hash($password1, PASSWORD_DEFAULT);
+$password   = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-if(isset($_REQUEST['command'])) {
-    require 'connect.php';
+if (isset($_REQUEST['command'])) {
+    
+    if ($_REQUEST['command'] == 'login') {
+        
+    }
 
-    if ($_REQUEST['command'] == 'Register') {
-        if ($password1 == $password2) {
-            $query    = "INSERT INTO login (user, password, email) VALUES (:user, :password, :email)";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':user', $username);
-            $statement->bindValue(':password', $hashed_Password);
-            $statement->bindValue(':email', $email);
-            //Execute the sql
-            $statement->execute();
-            header("Location: index.php");
-        }
 }
- ?>
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,8 +23,9 @@ if(isset($_REQUEST['command'])) {
         <div id="header">
             <h1><a href="index.php">EvE Ship Repository</a></h1>
         </div>
-        <h1>An error occured while processing your registration.</h1>
-        <a href="register.php">Registration</a>
+        <h1>An error occured while processing your login.</h1>
+        <p>Username or password was incorrect.</p>
+        <a href="login.php">try again</a>
 
         <div id="footer">
             NKing Final
