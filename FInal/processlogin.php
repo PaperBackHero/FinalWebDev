@@ -21,3 +21,24 @@ if(isset($_REQUEST['command'])) {
     }
 }
  ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> EvE Ship Repository - Error</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <h1><a href="index.php">EvE Ship Repository</a></h1>
+        </div>
+        <h1>An error occured while processing your registration.</h1>
+        <a href="register.php">Registration</a>
+
+        <div id="footer">
+            NKing Final
+        </div> <!-- END div id="footer" -->
+    </div> <!-- END div id="wrapper" -->
+</body>
+</html>
