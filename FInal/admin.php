@@ -49,6 +49,8 @@ $users= $statement->fetchAll();
                         <input type="submit" name="command" value="Register" />
                 </form>
               </div>
+              <br>
+        <div id="all_blogs">
         <h3>Users:</h3>
             <?php foreach($users as $user): ?>
                 <div class="blog_post">
@@ -60,6 +62,7 @@ $users= $statement->fetchAll();
                 </div>
                 <br>
             <?php endforeach ?>
+        </div>
         </div> <!-- END div id="all_blogs" -->
         <div id="footer">
             NKing Final

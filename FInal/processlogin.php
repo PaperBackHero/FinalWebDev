@@ -2,35 +2,35 @@
 $username   = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $password   = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+require 'connect.php';
+
+session_start();
+
 if (isset($_REQUEST['command'])) {
-    
-    if ($_REQUEST['command'] == 'login') {
+    if ($_REQUEST['command'] === 'Login') {
         if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         header("location: welcome.php");
         exit;
         }
-        else if ($username != "" || $password != "") {
-            require 'connect.php';
+        else if ($username !== false && $password !== false && is_null($username) !== false && is_null($password) !== false && $username !== "" && $password !== "") {
 
-            $hashed_password ="SELECT password FROM login WHERE user = :username";
+            $hashed_password ="SELECT password FROM login WHERE user = ':username'";
             $statement->bindValue(':username', $username);
             $statement->execute();
-
-            if (password_verify($password, $hashed_password)) {
-            $id ="SELECT id FROM login WHERE user = :username";
-            $statement->bindValue(':username', $username);
-            $statement->execute();
-
-                session_start();
-                            
-                // Store data in session variables
-                $_SESSION["loggedin"] = true;
-                $_SESSION["id"] = $id;
-                $_SESSION["username"] = $username;                            
-                            
-                // Redirect user to welcome page
-                header("location: welcome.php");
-            }
+            print_r($hashed_password);
+                if ($password === $hashed_password) {
+                $id ="SELECT id FROM login WHERE user = ':username'";
+                $statement->bindValue(':username', $username);
+                $statement->execute();
+              
+                    // Store data in session variables
+                    $_SESSION["loggedin"] = true;
+                    $_SESSION["id"] = $id;
+                    $_SESSION["username"] = $username;                            
+                                
+                    // Redirect user to welcome page
+                    header("location: welcome.php");
+                }
         }
 
     }

@@ -3,7 +3,7 @@ $email  = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $username   = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $password1   = filter_input(INPUT_POST, 'password_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $password2   = filter_input(INPUT_POST, 'password_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$hashed_Password = password_hash($password1, PASSWORD_DEFAULT);
+$hashed_password = password_hash($password1, PASSWORD_DEFAULT);
 
 if(isset($_REQUEST['command'])) {
     require 'connect.php';
@@ -13,7 +13,7 @@ if(isset($_REQUEST['command'])) {
             $query    = "INSERT INTO login (user, password, email) VALUES (:user, :password, :email)";
             $statement = $db->prepare($query);
             $statement->bindValue(':user', $username);
-            $statement->bindValue(':password', $hashed_Password);
+            $statement->bindValue(':password', $hashed_password);
             $statement->bindValue(':email', $email);
             //Execute the sql
             $statement->execute();
