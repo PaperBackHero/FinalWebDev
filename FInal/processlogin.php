@@ -8,26 +8,24 @@ session_start();
 
 if (isset($_REQUEST['command'])) {
     if ($_REQUEST['command'] === 'Login') {
-        if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-        header("location: welcome.php");
-        exit;
-        }
-        else if ($username !== false && $password !== false && is_null($username) !== false && is_null($password) !== false && $username !== "" && $password !== "") {
-
-            $hashed_password ="SELECT password FROM login WHERE user = ':username'";
+        if ($username !== false && $password !== false && !is_null($username) && !is_null($password) && $username !== "" && $password !== "") {
+            $query ="SELECT password FROM login WHERE user = $username";
+            $statement = $db->prepare($query);
             $statement->bindValue(':username', $username);
             $statement->execute();
+            $hashed_password = $statement->fetch();
             print_r($hashed_password);
-                if ($password === $hashed_password) {
-                $id ="SELECT id FROM login WHERE user = ':username'";
+                if (password_verify($password, $hashed_password)) {
+                $query ="SELECT id FROM login WHERE user = ':username'";
+                $statement = $db->prepare($query);
                 $statement->bindValue(':username', $username);
                 $statement->execute();
-              
+                $id = $statement->fetch();
                     // Store data in session variables
                     $_SESSION["loggedin"] = true;
                     $_SESSION["id"] = $id;
-                    $_SESSION["username"] = $username;                            
-                                
+                    $_SESSION["username"] = $username;
+
                     // Redirect user to welcome page
                     header("location: welcome.php");
                 }
